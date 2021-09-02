@@ -1,0 +1,6 @@
+.go-version
+.env
+
+/credentials
+
+/node_modules
