@@ -1,7 +1,13 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const webpack = require('webpack');
 
 const babelLoaderOption = { presets: [['@babel/preset-env', { targets: { ie: '11' } }]] };
+
+const envFile = process.env.ENV_FILE || '.env';
+require('dotenv').config({
+  path: `${__dirname}/../${envFile}`,
+});
 
 module.exports = {
   entry: './src/index.ts',
@@ -9,7 +15,14 @@ module.exports = {
     path: `${__dirname}/dist`,
     filename: 'bundle.js',
   },
-  plugins: [new CleanWebpackPlugin(), new VueLoaderPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      SERVER_BASE_URL: JSON.stringify(process.env.SERVER_BASE_URL),
+      CLIENT_BASE_URL: JSON.stringify(process.env.CLIENT_BASE_URL),
+    }),
+  ],
   module: {
     rules: [
       {

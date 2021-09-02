@@ -2,12 +2,10 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App',
+  name: 'Home',
 });
 </script>
 
 <style></style>
 
-<template>
-  <router-view></router-view>
-</template>
+<template></template>
