@@ -20,10 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: ${{ matrix.node_js }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_js }}
 
       - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
@@ -40,6 +40,7 @@ jobs:
       - name: Deploy to Google App Engine
         run: |
           gcloud auth activate-service-account --key-file $GITHUB_WORKSPACE/credentials/code-deployer.json
+          cd $GITHUB_WORKSPACE/client; make deploy
           cd $GITHUB_WORKSPACE/server; make deploy
 
       - name: Fetch Google Cloud SQL Proxy
