@@ -14,7 +14,7 @@ var s *youtube.Service
 func new() (*youtube.Service, error) {
 	ctx := context.Background()
 
-	f, err := os.Open("../credentials/youtube-accessor.json")
+	f, err := os.Open("./youtube-accessor.json")
 	if err != nil {
 		return &youtube.Service{}, err
 	}
