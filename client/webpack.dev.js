@@ -19,11 +19,10 @@ module.exports = merge(common, {
   plugins: [
     new FriendlyErrorsWebpackPlugin({
       onErrors: (severity, errors) => {
-        const severityIcon =
-          {
-            warning: '⚠️',
-            error: '💢',
-          }[severity] || `[${severity.toUpperCase()}]`;
+        const severityIcon = {
+          warning: '⚠️',
+          error: '💢',
+        }[severity] || `[${severity.toUpperCase()}]`;
 
         notifier.notify({
           title: `${severityIcon}`,
@@ -37,5 +36,8 @@ module.exports = merge(common, {
     static: [path.join(__dirname, 'dist'), path.join(__dirname, 'assets')],
     host: uri.hostname,
     port: uri.port,
+    historyApiFallback: {
+      rewrites: [{ from: /^\/*/, to: '/index.html' }],
+    },
   },
 });
