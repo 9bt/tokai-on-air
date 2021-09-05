@@ -16,7 +16,8 @@ CREATE PROCEDURE migrate(IN v INT, IN is_migratable BOOL)
         `published_at` TIMESTAMP NOT NULL,
         `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (`id`)
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `youtube_id_UNIQUE` (`youtube_id`)
       ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
       SHOW WARNINGS;
 
