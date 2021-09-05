@@ -18,7 +18,7 @@ import (
 // swagger:model v1ListVideosResponse
 type V1ListVideosResponse struct {
 
-	// 一覧される動画群です
+	// 動画群です
 	Video []*V1Video `json:"video"`
 }
 

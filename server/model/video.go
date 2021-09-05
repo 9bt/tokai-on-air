@@ -35,7 +35,7 @@ func NewVideo(item *youtube.SearchResult) Video {
 	}
 }
 
-//
+// APIModel returns representation of this internal model as API's one
 func (v Video) APIModel() *gm.V1Video {
 	return &gm.V1Video{
 		ID:          strconv.FormatInt(v.Id, 10),

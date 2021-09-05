@@ -16,7 +16,7 @@ import (
 // swagger:model v1FindVideoResponse
 type V1FindVideoResponse struct {
 
-	// video
+	// 動画です
 	Video *V1Video `json:"video,omitempty"`
 }
 

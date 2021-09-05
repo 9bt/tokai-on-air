@@ -41,12 +41,14 @@
         "parameters": [
           {
             "name": "after",
+            "description": "検索条件となる公開日時の始点です.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "before",
+            "description": "検索条件となる公開日時の終点です.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -69,7 +71,7 @@
           },
           {
             "name": "q",
-            "description": "検索用の文字列です.",
+            "description": "検索条件となる文字列です.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -128,6 +130,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "動画の ID です",
             "in": "path",
             "required": true,
             "type": "string",
@@ -176,7 +179,8 @@
       "type": "object",
       "properties": {
         "video": {
-          "$ref": "#/definitions/v1Video"
+          "$ref": "#/definitions/v1Video",
+          "title": "動画です"
         }
       },
       "title": "動画を取得する API のレスポンスです"
@@ -188,7 +192,8 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "YouTubeID 群です"
         }
       },
       "title": "動画 YouTubeID 一覧を取得する API のレスポンスです"
@@ -201,7 +206,7 @@
           "items": {
             "$ref": "#/definitions/v1Video"
           },
-          "title": "一覧される動画群です"
+          "title": "動画群です"
         }
       },
       "title": "動画一覧を取得する API のレスポンスです"
@@ -211,20 +216,25 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "動画の ID です"
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "動画のタイトルです"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "動画の説明です"
         },
         "youtubeId": {
-          "type": "string"
+          "type": "string",
+          "title": "動画の YouTube 上での ID です"
         },
         "publishedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "動画の公開日時です"
         }
       },
       "title": "動画を表すオブジェクトです"

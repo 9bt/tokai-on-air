@@ -37,28 +37,28 @@ service VideoService {
 
 // 動画を表すオブジェクトです
 message Video {
-    //
+    // 動画の ID です
     int64 id = 1;
 
-    //
+    // 動画のタイトルです
     string name = 2;
 
-    //
+    // 動画の説明です
     string description = 3;
 
-    //
+    // 動画の YouTube 上での ID です
     string youtubeId = 4;
 
-    //
+    // 動画の公開日時です
     google.protobuf.Timestamp publishedAt = 5;
 }
 
 // 動画一覧を取得する API のリクエストです
 message ListVideosRequest {
-    //
+    // 検索条件となる公開日時の始点です
     string after = 1;
 
-    //
+    // 検索条件となる公開日時の終点です
     string before = 2;
 
     // 一度のリクエストで取得する件数です
@@ -67,30 +67,30 @@ message ListVideosRequest {
     // 何件目から取得するかの数値です
     int32 offset = 4;
 
-    // 検索用の文字列です
+    // 検索条件となる文字列です
     string q = 5;
 }
 
 // 動画一覧を取得する API のレスポンスです
 message ListVideosResponse {
-    // 一覧される動画群です
+    // 動画群です
     repeated Video video = 1;
 }
 
 // 動画を取得する API のリクエストです
 message FindVideoRequest {
-    //
+    // 動画の ID です
     int64 id = 1;
 }
 
 // 動画を取得する API のレスポンスです
 message FindVideoResponse {
-    //
+    // 動画です
     Video video = 1;
 }
 
 // 動画 YouTubeID 一覧を取得する API のレスポンスです
 message ListVideoIdsResponse {
-    // 
+    // YouTubeID 群です
     repeated string id = 1;
 }

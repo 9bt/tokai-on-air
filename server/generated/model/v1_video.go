@@ -17,20 +17,20 @@ import (
 // swagger:model v1Video
 type V1Video struct {
 
-	// description
+	// 動画の説明です
 	Description string `json:"description,omitempty"`
 
-	// id
+	// 動画の ID です
 	ID string `json:"id,omitempty"`
 
-	// name
+	// 動画のタイトルです
 	Name string `json:"name,omitempty"`
 
-	// published at
+	// 動画の公開日時です
 	// Format: date-time
 	PublishedAt strfmt.DateTime `json:"publishedAt,omitempty"`
 
-	// youtube Id
+	// 動画の YouTube 上での ID です
 	YoutubeID string `json:"youtubeId,omitempty"`
 }
 

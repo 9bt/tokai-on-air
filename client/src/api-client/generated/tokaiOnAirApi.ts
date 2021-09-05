@@ -73,18 +73,18 @@ class TokaiOnAirApi extends TokaiOnAirApiContext {
   /**
    * 指定された動画を取得します。
    * @summary 動画取得
-   * @param id
+   * @param id 動画の ID です
    * @param [options] The optional parameters
    * @returns Promise<Models.FindVideoResponse>
    */
   findVideo(id: string, options?: msRest.RequestOptionsBase): Promise<Models.FindVideoResponse>;
   /**
-   * @param id
+   * @param id 動画の ID です
    * @param callback The callback
    */
   findVideo(id: string, callback: msRest.ServiceCallback<Models.V1FindVideoResponse>): void;
   /**
-   * @param id
+   * @param id 動画の ID です
    * @param options The optional parameters
    * @param callback The callback
    */

@@ -28,10 +28,25 @@ export interface RpcStatus {
  * @summary 動画を表すオブジェクトです
  */
 export interface V1Video {
+  /**
+   * 動画の ID です.
+   */
   id?: string;
+  /**
+   * 動画のタイトルです.
+   */
   name?: string;
+  /**
+   * 動画の説明です.
+   */
   description?: string;
+  /**
+   * 動画の YouTube 上での ID です.
+   */
   youtubeId?: string;
+  /**
+   * 動画の公開日時です.
+   */
   publishedAt?: Date;
 }
 
@@ -40,6 +55,9 @@ export interface V1Video {
  * @summary 動画を取得する API のレスポンスです
  */
 export interface V1FindVideoResponse {
+  /**
+   * 動画です.
+   */
   video?: V1Video;
 }
 
@@ -48,6 +66,9 @@ export interface V1FindVideoResponse {
  * @summary 動画 YouTubeID 一覧を取得する API のレスポンスです
  */
 export interface V1ListVideoIdsResponse {
+  /**
+   * YouTubeID 群です.
+   */
   id?: string[];
 }
 
@@ -57,7 +78,7 @@ export interface V1ListVideoIdsResponse {
  */
 export interface V1ListVideosResponse {
   /**
-   * 一覧される動画群です.
+   * 動画群です.
    */
   video?: V1Video[];
 }
@@ -73,7 +94,13 @@ export interface TokaiOnAirApiOptions extends ServiceClientOptions {
  * Optional Parameters.
  */
 export interface TokaiOnAirApiListVideosOptionalParams extends msRest.RequestOptionsBase {
+  /**
+   * 検索条件となる公開日時の始点です.
+   */
   after?: string;
+  /**
+   * 検索条件となる公開日時の終点です.
+   */
   before?: string;
   /**
    * 一度のリクエストで取得する件数です.
@@ -84,7 +111,7 @@ export interface TokaiOnAirApiListVideosOptionalParams extends msRest.RequestOpt
    */
   offset?: number;
   /**
-   * 検索用の文字列です.
+   * 検索条件となる文字列です.
    */
   q?: string;
 }

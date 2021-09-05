@@ -15,7 +15,7 @@ import (
 // swagger:model v1ListVideoIdsResponse
 type V1ListVideoIdsResponse struct {
 
-	// id
+	// YouTubeID 群です
 	ID []string `json:"id"`
 }
 
