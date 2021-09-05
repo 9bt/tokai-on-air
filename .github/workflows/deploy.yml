@@ -15,8 +15,8 @@ jobs:
     env:
       CLOUDSQL_CONNECTION_NAME: tokai-on-air:asia-northeast1:tokai-on-air
       CLOUDSQL_DB_NAME: tokai_on_air
-      CLOUDSQL_USER: root
-      CLOUDSQL_PASSWORD: ${{ secrets.CLOUDSQL_ROOT_PASSWORD }}
+      CLOUDSQL_DB_USER: root
+      CLOUDSQL_DB_PASSWORD: ${{ secrets.CLOUDSQL_ROOT_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
 
