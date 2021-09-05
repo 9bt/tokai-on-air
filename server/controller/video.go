@@ -132,8 +132,8 @@ func FetchAndSaveYouTubeVideos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, video := range videos {
-		if _, err := repository.CreateVideo(video); err != nil {
-			http.Error(w, fmt.Sprintf("Failed to save YouTube video meta on firestore. err: %v", err.Error()), http.StatusInternalServerError)
+		if err := repository.CreateOrUpdateVideo(video); err != nil {
+			http.Error(w, fmt.Sprintf("Failed to save YouTube video meta on MySQL. err: %v", err.Error()), http.StatusInternalServerError)
 			return
 		}
 	}

@@ -3,6 +3,7 @@ package mysql
 import (
 	"time"
 
+	"github.com/go-sql-driver/mysql"
 	"github.com/Masterminds/squirrel"
 
 	"github.com/9bt/tokai-on-air/server/db"
@@ -87,4 +88,25 @@ func CreateVideo(video model.Video) (int64, error) {
 	}
 
 	return id, nil
+}
+
+// UpdateVideo updates a video
+func UpdateVideo(video model.Video) error {
+	q := `UPDATE toa_video SET name = :name, description = :description, youtube_id = :youtube_id, published_at = :published_at, updated_at = NOW() WHERE youtube_id = :youtube_id`
+	if _ , err := db.DB().NamedExec(q, video); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// CreateOrUpdateVideo upserts a video
+func CreateOrUpdateVideo(video model.Video) error {
+	if _, err := CreateVideo(video); err != nil {
+		if mysqlErr, ok := err.(*mysql.MySQLError); ok && mysqlErr.Number == duplicateErrorNumber {
+			return UpdateVideo(video)
+		}
+	}
+
+	return nil
 }

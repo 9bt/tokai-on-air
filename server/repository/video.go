@@ -26,3 +26,13 @@ func ListYouTubeIds() ([]string, error) {
 func CreateVideo(video model.Video) (int64, error) {
 	return mysql.CreateVideo(video)
 }
+
+// UpdateVideo updates a video
+func UpdateVideo(video model.Video) error {
+	return mysql.UpdateVideo(video)
+}
+
+// CreateOrUpdateVideo upserts a video
+func CreateOrUpdateVideo(video model.Video) error {
+	return mysql.CreateOrUpdateVideo(video)
+}
