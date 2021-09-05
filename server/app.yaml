@@ -16,3 +16,4 @@ handlers:
 
 includes:
   - secret.yaml
+  - .env.yaml

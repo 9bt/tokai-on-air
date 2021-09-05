@@ -42,7 +42,11 @@ prepare-secret:
 copy-service-account:
 	cp ../credentials/youtube-accessor.json ./
 
-deploy: copy-service-account prepare-secret
+generate-env-yaml:
+	echo 'env_variables:' > .env.yaml
+	cat '../.env.production' | sed 's/^/  /' | sed 's/=/: /' | sed "s/: $$/: ''/" >> .env.yaml
+
+deploy: copy-service-account prepare-secret generate-env-yaml
 	GO111MODULE=on gcloud app deploy --quiet --project tokai-on-air
 
 prod-migration:
