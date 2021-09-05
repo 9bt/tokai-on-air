@@ -12,6 +12,7 @@ import (
 	"github.com/9bt/tokai-on-air/server/model"
 	"github.com/9bt/tokai-on-air/server/repository"
 	"github.com/9bt/tokai-on-air/server/service"
+	gm "github.com/9bt/tokai-on-air/server/generated/model"
 )
 
 const dateTimeFormat = "2006-01-02T15:04:05Z"
@@ -36,8 +37,13 @@ func ListVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	resp := gm.V1ListVideosResponse{}
+	for _, video := range videos {
+		resp.Video = append(resp.Video, video.APIModel())
+	}
+
 	WriteCacheControlHeader(w)
-	WriteJSONResponse(w, videos, http.StatusOK)
+	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
 // FindVideo represents REST API interface to retrieve a video
@@ -55,8 +61,12 @@ func FindVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	resp := gm.V1FindVideoResponse{
+		Video: video.APIModel(),
+	}
+
 	WriteCacheControlHeader(w)
-	WriteJSONResponse(w, video, http.StatusOK)
+	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
 // ListYouTubeIds represents REST API interface to retrieve YouTube IDs of the video
@@ -67,8 +77,12 @@ func ListYouTubeIds(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	resp := gm.V1ListVideoIdsResponse{
+		ID: yids,
+	}
+
 	WriteCacheControlHeader(w)
-	WriteJSONResponse(w, yids, http.StatusOK)
+	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
 // FetchAndSaveYouTubeVideos represents REST API interface to fetch video metas via YouTube API and save them to database

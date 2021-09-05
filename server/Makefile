@@ -1,7 +1,17 @@
 MYSQL = mysql -u root
 
+GO_SWAGGER_VERSION = v0.24.0
+
 bin/reflex:
 	GOBIN=`pwd`/bin GO111MODULE=on go install github.com/cespare/reflex
+
+bin/swagger:
+	curl -o ./bin/swagger -L'#' https://github.com/go-swagger/go-swagger/releases/download/$(GO_SWAGGER_VERSION)/swagger_$(shell echo `uname`|tr '[:upper:]' '[:lower:]')_amd64
+	chmod +x ./bin/swagger
+
+generate-api-model: bin/swagger
+	rm -rf generated; mkdir generated
+	./bin/swagger generate model -f ../idl/generated/swagger/v1/apidocs.swagger.json -m model -t generated
 
 deps:
 	GO111MODULE=on go mod download

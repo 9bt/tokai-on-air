@@ -10,11 +10,27 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "github.com/9bt/tokai-on-air/idl/lib";
 
 service VideoService {
-    // 動画情報取得
+    // 動画一覧取得
     //
-    // 指定された動画の情報を取得します。
-    rpc FindVideo(WithVideoRequest) returns (Video) {
+    // 動画の一覧を取得します。
+    rpc ListVideos(ListVideosRequest) returns (ListVideosResponse) {
+        option (google.api.http) = { get: "/videos" };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = { security: {} };
+    };
+
+    // 動画取得
+    //
+    // 指定された動画を取得します。
+    rpc FindVideo(FindVideoRequest) returns (FindVideoResponse) {
         option (google.api.http) = { get: "/videos/{id}" };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = { security: {} };
+    };
+
+    // 動画 YouTubeID 一覧取得
+    //
+    // 動画 YouTubeID の一覧を取得します。
+    rpc ListVideoIds(google.protobuf.Empty) returns (ListVideoIdsResponse) {
+        option (google.api.http) = { get: "/videos/-/youtube" };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = { security: {} };
     };
 }
@@ -37,8 +53,44 @@ message Video {
     google.protobuf.Timestamp publishedAt = 5;
 }
 
-// 動画を指定するためのリクエストです
-message WithVideoRequest {
+// 動画一覧を取得する API のリクエストです
+message ListVideosRequest {
+    //
+    string after = 1;
+
+    //
+    string before = 2;
+
+    // 一度のリクエストで取得する件数です
+    int32 limit = 3;
+
+    // 何件目から取得するかの数値です
+    int32 offset = 4;
+
+    // 検索用の文字列です
+    string q = 5;
+}
+
+// 動画一覧を取得する API のレスポンスです
+message ListVideosResponse {
+    // 一覧される動画群です
+    repeated Video video = 1;
+}
+
+// 動画を取得する API のリクエストです
+message FindVideoRequest {
     //
     int64 id = 1;
+}
+
+// 動画を取得する API のレスポンスです
+message FindVideoResponse {
+    //
+    Video video = 1;
+}
+
+// 動画 YouTubeID 一覧を取得する API のレスポンスです
+message ListVideoIdsResponse {
+    // 
+    repeated string id = 1;
 }

@@ -101,3 +101,63 @@ export const V1Video: msRest.CompositeMapper = {
     }
   }
 };
+
+export const V1FindVideoResponse: msRest.CompositeMapper = {
+  serializedName: "v1FindVideoResponse",
+  type: {
+    name: "Composite",
+    className: "V1FindVideoResponse",
+    modelProperties: {
+      video: {
+        serializedName: "video",
+        type: {
+          name: "Composite",
+          className: "V1Video"
+        }
+      }
+    }
+  }
+};
+
+export const V1ListVideoIdsResponse: msRest.CompositeMapper = {
+  serializedName: "v1ListVideoIdsResponse",
+  type: {
+    name: "Composite",
+    className: "V1ListVideoIdsResponse",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "String"
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+export const V1ListVideosResponse: msRest.CompositeMapper = {
+  serializedName: "v1ListVideosResponse",
+  type: {
+    name: "Composite",
+    className: "V1ListVideosResponse",
+    modelProperties: {
+      video: {
+        serializedName: "video",
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Composite",
+              className: "V1Video"
+            }
+          }
+        }
+      }
+    }
+  }
+};

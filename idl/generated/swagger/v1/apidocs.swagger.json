@@ -19,16 +19,103 @@
     "application/json"
   ],
   "paths": {
+    "/videos": {
+      "get": {
+        "summary": "動画一覧取得",
+        "description": "動画の一覧を取得します。",
+        "operationId": "ListVideos",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListVideosResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "一度のリクエストで取得する件数です.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "description": "何件目から取得するかの数値です.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "q",
+            "description": "検索用の文字列です.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "VideoService"
+        ],
+        "security": []
+      }
+    },
+    "/videos/-/youtube": {
+      "get": {
+        "summary": "動画 YouTubeID 一覧取得",
+        "description": "動画 YouTubeID の一覧を取得します。",
+        "operationId": "ListVideoIds",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListVideoIdsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "VideoService"
+        ],
+        "security": []
+      }
+    },
     "/videos/{id}": {
       "get": {
-        "summary": "動画情報取得",
-        "description": "指定された動画の情報を取得します。",
+        "summary": "動画取得",
+        "description": "指定された動画を取得します。",
         "operationId": "FindVideo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1Video"
+              "$ref": "#/definitions/v1FindVideoResponse"
             }
           },
           "default": {
@@ -84,6 +171,40 @@
           }
         }
       }
+    },
+    "v1FindVideoResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/v1Video"
+        }
+      },
+      "title": "動画を取得する API のレスポンスです"
+    },
+    "v1ListVideoIdsResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "動画 YouTubeID 一覧を取得する API のレスポンスです"
+    },
+    "v1ListVideosResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Video"
+          },
+          "title": "一覧される動画群です"
+        }
+      },
+      "title": "動画一覧を取得する API のレスポンスです"
     },
     "v1Video": {
       "type": "object",

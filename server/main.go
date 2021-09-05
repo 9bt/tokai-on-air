@@ -21,8 +21,9 @@ func main() {
 	r.HandleFunc("/videos/-/youtube", controller.ListYouTubeIds).Methods("GET")
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{os.Getenv("CLIENT_BASE_URL")},
 		AllowCredentials: true,
+		AllowedHeaders:   []string{"Authorization", "Content-Type", "X-Ms-Command-Name"},
+		AllowedOrigins:   []string{os.Getenv("CLIENT_BASE_URL")},
 	})
 	handler := c.Handler(r)
 

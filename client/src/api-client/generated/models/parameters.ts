@@ -6,11 +6,71 @@
 
 import * as msRest from "@azure/ms-rest-js";
 
+export const after: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "after"
+  ],
+  mapper: {
+    serializedName: "after",
+    type: {
+      name: "String"
+    }
+  }
+};
+export const before: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "before"
+  ],
+  mapper: {
+    serializedName: "before",
+    type: {
+      name: "String"
+    }
+  }
+};
 export const id: msRest.OperationURLParameter = {
   parameterPath: "id",
   mapper: {
     required: true,
     serializedName: "id",
+    type: {
+      name: "String"
+    }
+  }
+};
+export const limit: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "limit"
+  ],
+  mapper: {
+    serializedName: "limit",
+    type: {
+      name: "Number"
+    }
+  }
+};
+export const offset: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "offset"
+  ],
+  mapper: {
+    serializedName: "offset",
+    type: {
+      name: "Number"
+    }
+  }
+};
+export const q: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "q"
+  ],
+  mapper: {
+    serializedName: "q",
     type: {
       name: "String"
     }

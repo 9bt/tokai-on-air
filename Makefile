@@ -7,3 +7,4 @@ env-development:
 generate-api:
 	cd idl; make generate-swagger-idl
 	cd client; make generate-api-client
+	cd server; make generate-api-model

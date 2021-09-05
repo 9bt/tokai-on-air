@@ -36,6 +36,33 @@ export interface V1Video {
 }
 
 /**
+ * An interface representing V1FindVideoResponse.
+ * @summary 動画を取得する API のレスポンスです
+ */
+export interface V1FindVideoResponse {
+  video?: V1Video;
+}
+
+/**
+ * An interface representing V1ListVideoIdsResponse.
+ * @summary 動画 YouTubeID 一覧を取得する API のレスポンスです
+ */
+export interface V1ListVideoIdsResponse {
+  id?: string[];
+}
+
+/**
+ * An interface representing V1ListVideosResponse.
+ * @summary 動画一覧を取得する API のレスポンスです
+ */
+export interface V1ListVideosResponse {
+  /**
+   * 一覧される動画群です.
+   */
+  video?: V1Video[];
+}
+
+/**
  * An interface representing TokaiOnAirApiOptions.
  */
 export interface TokaiOnAirApiOptions extends ServiceClientOptions {
@@ -43,9 +70,29 @@ export interface TokaiOnAirApiOptions extends ServiceClientOptions {
 }
 
 /**
- * Contains response data for the findVideo operation.
+ * Optional Parameters.
  */
-export type FindVideoResponse = V1Video & {
+export interface TokaiOnAirApiListVideosOptionalParams extends msRest.RequestOptionsBase {
+  after?: string;
+  before?: string;
+  /**
+   * 一度のリクエストで取得する件数です.
+   */
+  limit?: number;
+  /**
+   * 何件目から取得するかの数値です.
+   */
+  offset?: number;
+  /**
+   * 検索用の文字列です.
+   */
+  q?: string;
+}
+
+/**
+ * Contains response data for the listVideos operation.
+ */
+export type ListVideosResponse = V1ListVideosResponse & {
   /**
    * The underlying HTTP response.
    */
@@ -58,6 +105,46 @@ export type FindVideoResponse = V1Video & {
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: V1Video;
+      parsedBody: V1ListVideosResponse;
+    };
+};
+
+/**
+ * Contains response data for the listVideoIds operation.
+ */
+export type ListVideoIdsResponse = V1ListVideoIdsResponse & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: V1ListVideoIdsResponse;
+    };
+};
+
+/**
+ * Contains response data for the findVideo operation.
+ */
+export type FindVideoResponse = V1FindVideoResponse & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: V1FindVideoResponse;
     };
 };

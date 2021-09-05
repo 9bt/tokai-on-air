@@ -79,7 +79,7 @@ func CreateVideo(video model.Video) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	video.ID = id
+	video.Id = id
 
 	q := `INSERT INTO toa_video (id, name, description, youtube_id, published_at) VALUES (:id, :name, :description, :youtube_id, :published_at)`
 	if _, err := db.DB().NamedExec(q, video); err != nil {
