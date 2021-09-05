@@ -1,0 +1,52 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        node_js: ['12']
+    env:
+      CLOUDSQL_CONNECTION_NAME: tokai-on-air:asia-northeast1:tokai-on-air
+      CLOUDSQL_DB_NAME: tokai_on_air
+      CLOUDSQL_USER: root
+      CLOUDSQL_PASSWORD: ${{ secrets.CLOUDSQL_ROOT_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: ${{ matrix.node_js }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
+
+      - name: Prepare credentials
+        run: |
+          mkdir $GITHUB_WORKSPACE/credentials
+          echo "$CODE_DEPLOYER_SERVICE_ACCOUNT" > $GITHUB_WORKSPACE/credentials/code-deployer.json
+          echo "$YOUTUBE_ACCESSOR_SERVICE_ACCOUNT" > $GITHUB_WORKSPACE/credentials/youtube-accessor.json
+        env:
+          CODE_DEPLOYER_SERVICE_ACCOUNT: ${{ secrets.CODE_DEPLOYER_SERVICE_ACCOUNT }}
+          YOUTUBE_ACCESSOR_SERVICE_ACCOUNT: ${{ secrets.YOUTUBE_ACCESSOR_SERVICE_ACCOUNT }}
+
+      - name: Deploy to Google App Engine
+        run: |
+          gcloud auth activate-service-account --key-file $GITHUB_WORKSPACE/credentials/code-deployer.json
+          cd $GITHUB_WORKSPACE/server; make deploy
+
+      - name: Fetch Google Cloud SQL Proxy
+        run: |
+          mkdir -p $HOME/bin
+          wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O $HOME/bin/cloud_sql_proxy
+          chmod +x $HOME/bin/cloud_sql_proxy
+
+      - name: Migrate Google Cloud SQL tables
+        run: cd $GITHUB_WORKSPACE/server && export MYSQL_PWD="${{ secrets.CLOUDSQL_GITHUB_ACTIONS_PASSWORD }}" && make prod-migration

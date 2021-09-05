@@ -1,4 +1,8 @@
 MYSQL = mysql -u root
+CLOUDSQL_PROXY=$(HOME)/bin/cloud_sql_proxy
+
+PRODUCTION_CLOUD_SQL_INSTANCE=tokai-on-air:asia-northeast1:tokai-on-air
+PRODUCTION_MYSQL_DEPLOY_USER=github_actions
 
 GO_SWAGGER_VERSION = v0.24.0
 
@@ -16,7 +20,7 @@ generate-api-model: bin/swagger
 deps:
 	GO111MODULE=on go mod download
 
-run: deps
+run: deps copy-service-account
 	$(shell cat ../.env) \
 	GO111MODULE=on go run main.go
 
@@ -31,3 +35,18 @@ dev-migration: dev-create-db
 
 dev-drop-db:
 	$(MYSQL) -e 'DROP DATABASE IF EXISTS tokai_on_air_dev'
+
+prepare-secret:
+	php secret.yaml.sample > secret.yaml
+
+copy-service-account:
+	cp ../credentials/youtube-accessor.json ./
+
+deploy: copy-service-account prepare-secret
+	GO111MODULE=on gcloud app deploy --quiet --project tokai-on-air
+
+prod-migration:
+	mkdir -p /tmp/cloudsql
+	$(CLOUDSQL_PROXY) -dir=/tmp/cloudsql -instances=$(PRODUCTION_CLOUD_SQL_INSTANCE) -credential_file=../credentials/code-deployer.json &
+	sleep 10
+	echo use tokai_on_air | cat - migration/*.sql | mysql -u $(PRODUCTION_MYSQL_DEPLOY_USER) -S /tmp/cloudsql/$(PRODUCTION_CLOUD_SQL_INSTANCE) | perl -npe 's/Level\tCode\tMessage\n//' | perl -npe 's/Note\t1050\tTable.*already exists\n//' | wc -c | xargs -I{} test {} -le 1

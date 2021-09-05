@@ -1,0 +1,18 @@
+runtime: go113
+service: server
+
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 1
+  min_pending_latency: 3000ms
+  max_pending_latency: automatic
+  max_concurrent_requests: 80
+
+handlers:
+  - url: /admin/.*
+    login: admin
+    script: auto
+
+includes:
+  - secret.yaml
