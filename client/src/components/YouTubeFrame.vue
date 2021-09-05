@@ -15,16 +15,20 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: DEFAULT_HEIGHT,
     },
-    youtubeURL: {
+    youtubeId: {
       type: String as PropType<string>,
       default: '',
     },
   },
   setup(props) {
-    const isURLValid = computed<boolean>(() => props.youtubeURL !== '');
+    const isURLValid = computed<boolean>(() => props.youtubeId !== '');
+    const youtubeURL = computed<string>(() => {
+      return props.youtubeId !== '' ? `https://www.youtube.com/embed/${props.youtubeId}` : '';
+    });
 
     return {
       isURLValid,
+      youtubeURL,
     };
   },
 });

@@ -26,12 +26,8 @@ export default defineComponent({
 
     watch(tmpVideoIds, changePickedVideo);
 
-    const videoURL = computed<string>(() => {
-      return videoId.value !== '' ? `https://www.youtube.com/embed/${videoId.value}` : '';
-    });
-
     return {
-      videoURL,
+      videoId,
       changePickedVideo,
     };
   },
@@ -41,7 +37,7 @@ export default defineComponent({
 <style></style>
 
 <template>
-  <YouTubeFrame :youtubeURL="videoURL" />
+  <YouTubeFrame :youtubeId="videoId" />
   <br />
   <button @click="changePickedVideo">動画を変更する</button>
 </template>
