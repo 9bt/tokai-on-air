@@ -16,6 +16,7 @@ func main() {
 
 	r.HandleFunc("/videos", controller.ListVideos).Methods("GET")
 	r.HandleFunc("/videos/{id}", controller.FindVideo).Methods("GET")
+	r.HandleFunc("/videos/-/latest", controller.ListLatestVideos).Methods("GET")
 	r.HandleFunc("/videos/-/youtube", controller.ListYouTubeIds).Methods("GET")
 
 	r.HandleFunc("/admin/video", controller.RenderAdminVideoPage).Methods("GET")

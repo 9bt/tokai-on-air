@@ -9,6 +9,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/jmoiron/sqlx v1.3.4
+	github.com/mmcdole/gofeed v1.1.3
 	github.com/rs/cors v1.8.0
 	github.com/sony/sonyflake v1.0.0
 	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914

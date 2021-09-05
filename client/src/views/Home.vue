@@ -37,6 +37,7 @@ export default defineComponent({
 <style></style>
 
 <template>
+  <h3>ランダム動画</h3>
   <YouTubeFrame :youtubeId="videoId" />
   <br />
   <button @click="changePickedVideo">動画を変更する</button>

@@ -137,6 +137,26 @@ export type ListVideosResponse = V1ListVideosResponse & {
 };
 
 /**
+ * Contains response data for the listLatestVideos operation.
+ */
+export type ListLatestVideosResponse = V1ListVideosResponse & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: V1ListVideosResponse;
+    };
+};
+
+/**
  * Contains response data for the listVideoIds operation.
  */
 export type ListVideoIdsResponse = V1ListVideoIdsResponse & {

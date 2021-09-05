@@ -18,6 +18,23 @@ import (
 
 const dateTimeFormat = "2006-01-02T15:04:05Z"
 
+// ListLatestVideos retrives represents REST API interface to retrieve latest videos
+func ListLatestVideos(w http.ResponseWriter, r *http.Request) {
+	videos, err := service.FetchVideosFromAtom()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	resp := gm.V1ListVideosResponse{}
+	for _, video := range videos {
+		resp.Video = append(resp.Video, video.APIModel())
+	}
+
+	WriteCacheControlHeader(w)
+	WriteJSONResponse(w, resp, http.StatusOK)
+}
+
 // ListVideos retrives represents REST API interface to retrieve videos
 func ListVideos(w http.ResponseWriter, r *http.Request) {
 	after, before, err := ParseAfterAndBeforeQueryParams(r)

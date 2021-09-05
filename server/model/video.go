@@ -12,7 +12,7 @@ import (
 
 // Video represents the video
 type Video struct {
-	Id          int64     `db:"id" json:"id"`
+	Id          int64     `db:"id" json:"id,omitempty"`
 	Name        string    `db:"name" json:"name"`
 	Description string    `db:"description" json:"description"`
 	YouTubeId   string    `db:"youtube_id" json:"youtube_id"`

@@ -46,6 +46,31 @@ class TokaiOnAirApi extends TokaiOnAirApiContext {
   }
 
   /**
+   * 最新動画の一覧を取得します。
+   * @summary 最新動画一覧取得
+   * @param [options] The optional parameters
+   * @returns Promise<Models.ListLatestVideosResponse>
+   */
+  listLatestVideos(options?: msRest.RequestOptionsBase): Promise<Models.ListLatestVideosResponse>;
+  /**
+   * @param callback The callback
+   */
+  listLatestVideos(callback: msRest.ServiceCallback<Models.V1ListVideosResponse>): void;
+  /**
+   * @param options The optional parameters
+   * @param callback The callback
+   */
+  listLatestVideos(options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.V1ListVideosResponse>): void;
+  listLatestVideos(options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.V1ListVideosResponse>, callback?: msRest.ServiceCallback<Models.V1ListVideosResponse>): Promise<Models.ListLatestVideosResponse> {
+    return this.sendOperationRequest(
+      {
+        options
+      },
+      listLatestVideosOperationSpec,
+      callback) as Promise<Models.ListLatestVideosResponse>;
+  }
+
+  /**
    * 動画 YouTubeID の一覧を取得します。
    * @summary 動画 YouTubeID 一覧取得
    * @param [options] The optional parameters
@@ -112,6 +137,20 @@ const listVideosOperationSpec: msRest.OperationSpec = {
     Parameters.offset,
     Parameters.q
   ],
+  responses: {
+    200: {
+      bodyMapper: Mappers.V1ListVideosResponse
+    },
+    default: {
+      bodyMapper: Mappers.RpcStatus
+    }
+  },
+  serializer
+};
+
+const listLatestVideosOperationSpec: msRest.OperationSpec = {
+  httpMethod: "GET",
+  path: "videos/-/latest",
   responses: {
     200: {
       bodyMapper: Mappers.V1ListVideosResponse

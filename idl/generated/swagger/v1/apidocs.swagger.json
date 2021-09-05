@@ -83,6 +83,31 @@
         "security": []
       }
     },
+    "/videos/-/latest": {
+      "get": {
+        "summary": "最新動画一覧取得",
+        "description": "最新動画の一覧を取得します。",
+        "operationId": "ListLatestVideos",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListVideosResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "VideoService"
+        ],
+        "security": []
+      }
+    },
     "/videos/-/youtube": {
       "get": {
         "summary": "動画 YouTubeID 一覧取得",
