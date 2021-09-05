@@ -14,7 +14,10 @@ build: clean deps
 serve: clean deps
 	$(YARN) run serve
 
-deploy: build
+copy-assets:
+	cp assets/index.html dist
+
+deploy: build copy-assets
 	cp app.yaml .gcloudignore dist
 	gcloud app deploy --quiet --project tokai-on-air dist
 
