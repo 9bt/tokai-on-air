@@ -16,9 +16,10 @@ func main() {
 
 	r.HandleFunc("/videos", controller.ListVideos).Methods("GET")
 	r.HandleFunc("/videos/{id}", controller.FindVideo).Methods("GET")
-	r.HandleFunc("/videos/-/batch", controller.FetchAndSaveYouTubeVideos).Methods("PUT")
-
 	r.HandleFunc("/videos/-/youtube", controller.ListYouTubeIds).Methods("GET")
+
+	r.HandleFunc("/admin/video", controller.RenderAdminVideoPage).Methods("GET")
+	r.HandleFunc("/admin/video", controller.UpdateVideoViaYouTube).Methods("POST")
 
 	c := cors.New(cors.Options{
 		AllowCredentials: true,

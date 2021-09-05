@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"strconv"
@@ -85,8 +86,18 @@ func ListYouTubeIds(w http.ResponseWriter, r *http.Request) {
 	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
-// FetchAndSaveYouTubeVideos represents REST API interface to fetch video metas via YouTube API and save them to database
-func FetchAndSaveYouTubeVideos(w http.ResponseWriter, r *http.Request) {
+// RenderAdminVideoPage renders a video page for administrator
+func RenderAdminVideoPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("form").ParseFiles("template/form.html"))
+	var item interface{}
+	if err := tmpl.Execute(w, item); err != nil {
+		http.Error(w, fmt.Sprintf("err: %v", err.Error()), http.StatusInternalServerError)
+		return
+	}
+}
+
+// UpdateVideoViaYouTube updates video by YouTube Data API
+func UpdateVideoViaYouTube(w http.ResponseWriter, r *http.Request) {
 	videos := []model.Video{}
 
 	r.ParseForm()
@@ -138,5 +149,12 @@ func FetchAndSaveYouTubeVideos(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	WriteEmptyResponse(w, http.StatusOK)
+	tmpl := template.Must(template.New("message").ParseFiles("template/message.html"))
+	item := map[string]string{
+		"message": "完了しました",
+	}
+	if err := tmpl.Execute(w, item); err != nil {
+		http.Error(w, fmt.Sprintf("err: %v", err.Error()), http.StatusInternalServerError)
+		return
+	}
 }
