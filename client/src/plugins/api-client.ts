@@ -8,7 +8,7 @@ declare module 'vue/types/vue' {
 }
 
 const configuration = new Configuration({
-  basePath: 'http://localhost:8000',
+  basePath: process.env.SERVER_BASE_URL,
 });
 
 Vue.prototype.$api = new VideoServiceApi(configuration);

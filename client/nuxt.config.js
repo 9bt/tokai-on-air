@@ -1,3 +1,9 @@
+const envFile = process.env.ENV_FILE || '.env';
+const isProduction = envFile === '.env.production';
+require('dotenv').config({
+  path: `${__dirname}/../${envFile}`,
+});
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -33,6 +39,7 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/composition-api/module',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -49,6 +56,11 @@ export default {
   },
 
   srcDir: 'src/',
+
+  env: {
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
+    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
+  },
 
   server: {
     port: 8080
