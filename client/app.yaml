@@ -1,30 +1,25 @@
 runtime: nodejs12
-
 instance_class: F1
+
 automatic_scaling:
-  min_idle_instances: automatic
-  max_idle_instances: 1
+  max_instances: 1
+  min_idle_instances: 1
+  target_cpu_utilization: 0.95
+  target_throughput_utilization: 0.95
+  max_concurrent_requests: 50
   min_pending_latency: 3000ms
   max_pending_latency: automatic
-  max_concurrent_requests: 80
 
 handlers:
-  - url: /(.*\..*)$
-    static_files: \1
-    upload: (.*)
+  - url: /_nuxt
+    static_dir: .nuxt/dist/client
     secure: always
-    http_headers:
-      X-Content-Type-Options: nosniff
-      X-Download-Options: noopen
-      X-Frame-Options: SAMEORIGIN
-      X-XSS-Protection: 1; mode=block
+
+  - url: /(.*\.(gif|png|jpg|ico|txt|json|svg))$
+    static_files: static/\1
+    upload: static/.*\.(gif|png|jpg|ico|txt|json|svg)$
+    secure: always
 
   - url: /.*
-    static_files: index.html
-    upload: index.html
+    script: auto
     secure: always
-    http_headers:
-      X-Content-Type-Options: nosniff
-      X-Download-Options: noopen
-      X-Frame-Options: SAMEORIGIN
-      X-XSS-Protection: 1; mode=block

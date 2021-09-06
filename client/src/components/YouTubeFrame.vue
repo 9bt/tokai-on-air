@@ -1,5 +1,17 @@
+<template>
+  <iframe
+    v-if="isURLValid"
+    :src="youtubeURL"
+    :width="width"
+    :height="height"
+    frameborder="0"
+    allowfullscreen
+  >
+  </iframe>
+</template>
+
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue';
+import { defineComponent, PropType, computed } from '@nuxtjs/composition-api';
 
 const DEFAULT_WIDTH = 560;
 const DEFAULT_HEIGHT = 315;
@@ -33,15 +45,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<template>
-  <iframe
-    v-if="isURLValid"
-    :src="youtubeURL"
-    :width="width"
-    :height="height"
-    frameborder="0"
-    allowfullscreen
-  >
-  </iframe>
-</template>

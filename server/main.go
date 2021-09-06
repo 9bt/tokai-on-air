@@ -31,7 +31,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "2000"
+		port = "8000"
 	}
 
 	if err := http.ListenAndServe(":"+port, handler); err != nil {

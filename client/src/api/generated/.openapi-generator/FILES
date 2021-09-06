@@ -1,0 +1,12 @@
+.openapi-generator-ignore
+apis/VideoServiceApi.ts
+apis/index.ts
+index.ts
+models/ProtobufAny.ts
+models/RpcStatus.ts
+models/V1FindVideoResponse.ts
+models/V1ListVideoIdsResponse.ts
+models/V1ListVideosResponse.ts
+models/V1Video.ts
+models/index.ts
+runtime.ts
