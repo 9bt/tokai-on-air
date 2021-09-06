@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>最新動画</h3>
-    <YouTubeFrame :youtubeId="(video || {}).youtubeId" />
+    <YouTubeFrame :youtube-id="(video || {}).youtubeId" />
 
     <router-link :to="{ name: 'latest' }">最新動画一覧へ</router-link>
   </div>
@@ -15,11 +15,6 @@ import YouTubeFrame from '@/components/YouTubeFrame.vue';
 
 export default defineComponent({
   name: 'Home',
-  head() {
-    return {
-      title: 'Home',
-    };
-  },
   components: {
     YouTubeFrame,
   },
@@ -33,6 +28,11 @@ export default defineComponent({
 
     return {
       video,
+    };
+  },
+  head() {
+    return {
+      title: 'Home',
     };
   },
 });

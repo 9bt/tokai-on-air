@@ -4,9 +4,11 @@ deps:
 	$(YARN)
 
 build: deps
+	cp ../.env.production .env
 	$(YARN) run build
 
 serve: deps
+	cp ../.env.development .env
 	$(YARN) run dev
 
 deploy: build
