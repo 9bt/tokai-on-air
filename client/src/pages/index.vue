@@ -27,7 +27,7 @@ export default defineComponent({
     const video = ref<V1Video | null>(null);
     const { fetch } = useFetch(async () => {
       const response = await context.root.$api.listLatestVideos();
-      video.value = response.video[0] ?? null;
+      video.value = (response.video ?? [])[0] ?? null;
     });
     fetch();
 
