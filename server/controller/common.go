@@ -27,6 +27,6 @@ func WriteEmptyResponse(w http.ResponseWriter, status int) {
 }
 
 // WriteCacheControlHeader writes a Cache-Control header
-func WriteCacheControlHeader(w http.ResponseWriter) {
-	w.Header().Set("Cache-Control", "public, max-age=60")
+func WriteCacheControlHeader(w http.ResponseWriter, maxAge int) {
+	w.Header().Set("Cache-Control", fmt.Sprintf("public, max-age=%d", maxAge))
 }

@@ -31,7 +31,7 @@ func ListLatestVideos(w http.ResponseWriter, r *http.Request) {
 		resp.Video = append(resp.Video, video.APIModel())
 	}
 
-	WriteCacheControlHeader(w)
+	WriteCacheControlHeader(w, 360)
 	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
@@ -60,7 +60,7 @@ func ListVideos(w http.ResponseWriter, r *http.Request) {
 		resp.Video = append(resp.Video, video.APIModel())
 	}
 
-	WriteCacheControlHeader(w)
+	WriteCacheControlHeader(w, 3600)
 	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
@@ -83,7 +83,7 @@ func FindVideo(w http.ResponseWriter, r *http.Request) {
 		Video: video.APIModel(),
 	}
 
-	WriteCacheControlHeader(w)
+	WriteCacheControlHeader(w, 3600)
 	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
@@ -99,7 +99,7 @@ func ListYouTubeIds(w http.ResponseWriter, r *http.Request) {
 		ID: yids,
 	}
 
-	WriteCacheControlHeader(w)
+	WriteCacheControlHeader(w, 43200)
 	WriteJSONResponse(w, resp, http.StatusOK)
 }
 
