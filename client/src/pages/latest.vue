@@ -1,14 +1,9 @@
 <template>
   <div>
-    <h3>最新動画一覧</h3>
-    <div v-for="video in videos" :id="video.youtubeId" :key="video.youtubeId">
-      <a :href="`https://www.youtube.com/watch?v=${video.youtubeId}`">
-        <img :src="`http://img.youtube.com/vi/${video.youtubeId}/sddefault.jpg`" />
-        <span>{{ video.name }}</span>
-      </a>
-    </div>
-
-    <router-link :to="{ name: 'index' }">ホームへ</router-link>
+    <h1>最新動画一覧</h1>
+    <b-card-group>
+      <YouTubeCard v-for="video in videos" :key="video.youtubeId" :video="video" />
+    </b-card-group>
   </div>
 </template>
 
@@ -16,9 +11,13 @@
 import { defineComponent, SetupContext, useFetch, ref } from '@nuxtjs/composition-api';
 
 import { V1Video } from '@/api/generated/models';
+import YouTubeCard from '@/components/YouTubeCard.vue';
 
 export default defineComponent({
   name: 'Latest',
+  components: {
+    YouTubeCard,
+  },
   setup(_, context: SetupContext) {
     const videos = ref<V1Video[]>([]);
     const { fetch } = useFetch(async () => {
@@ -38,9 +37,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-img {
-  width: 20%;
-}
-</style>

@@ -1,9 +1,7 @@
 <template>
   <div>
-    <h3>最新動画</h3>
-    <YouTubeFrame :youtube-id="(video || {}).youtubeId" />
-
-    <router-link :to="{ name: 'latest' }">最新動画一覧へ</router-link>
+    <h1>最新動画</h1>
+    <YouTubeEmbed :youtube-id="(video || {}).youtubeId" />
   </div>
 </template>
 
@@ -11,12 +9,12 @@
 import { defineComponent, SetupContext, useFetch, ref } from '@nuxtjs/composition-api';
 
 import { V1Video } from '@/api/generated/models';
-import YouTubeFrame from '@/components/YouTubeFrame.vue';
+import YouTubeEmbed from '@/components/YouTubeEmbed.vue';
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Index',
   components: {
-    YouTubeFrame,
+    YouTubeEmbed,
   },
   setup(_, context: SetupContext) {
     const video = ref<V1Video | null>(null);
@@ -32,7 +30,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: 'Home',
+      title: 'Index',
     };
   },
 });
